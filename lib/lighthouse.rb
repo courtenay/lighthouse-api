@@ -49,7 +49,7 @@ module Lighthouse
   class Error < StandardError; end
   
   class Change < Array; end
-  
+
   class << self
     attr_accessor :account, :email, :password, :host_format, :domain_format, :protocol, :port
     attr_reader :token
@@ -69,6 +69,13 @@ module Lighthouse
       @token = value
       resources.each do |klass|
         update_token_header(klass)
+      end
+    end
+    
+    def account=(value)
+      @account = value
+      resources.each do |klass|
+        update_site(resource)
       end
     end
 
